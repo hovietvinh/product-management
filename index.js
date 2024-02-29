@@ -18,6 +18,10 @@ app.set("view engine" , "pug");
 // DÙNG FILE TĨNH
 app.use(express.static("public"));
 
+// KHAI BÁO BIẾN TOÀN CỤC 
+const systemConfig = require("./config/system");
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+
 // DÙNG ROUTES
 const routesClient = require("./routes/client/index.route");
 const routesAdmin = require("./routes/admin/index.route");
