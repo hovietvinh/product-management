@@ -19,8 +19,10 @@ app.set("view engine" , "pug");
 app.use(express.static("public"));
 
 // DÙNG ROUTES
-const routes = require("./routes/client/index.route");
-routes(app);
+const routesClient = require("./routes/client/index.route");
+const routesAdmin = require("./routes/admin/index.route");
+routesAdmin(app);
+routesClient(app);
 
 app.listen(port,()=>{
     console.log("vao port " + port +" thanh cong");
