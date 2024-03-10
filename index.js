@@ -14,6 +14,10 @@ database.connect()
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'))
 
+// DÙng body-parser
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+
 
 // DÙNG PUG 
 app.set("views" , "./views");
