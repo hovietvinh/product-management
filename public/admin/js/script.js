@@ -82,7 +82,6 @@ if(checkboxMulti){
 // FORM-CHANGE-MULTI
 const formChangeMulti = document.querySelector("[form-change-multi]");
 if(formChangeMulti){
-    console.log(formChangeMulti);
     formChangeMulti.addEventListener("submit",(e)=>{
         e.preventDefault();
         const checkboxMulti = document.querySelector("[checkbox-multi]");
