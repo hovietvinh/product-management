@@ -28,17 +28,17 @@ module.exports.index= async (req, res)=>{
 
     // phân trang sản phẩm
     const countProducts = await Product.countDocuments(find);
-    let objectPagination = {
+    const paginationHelper = require("../../helpers/PaginationHelper");
+    let objectPagination = paginationHelper(
+        {
         currentPage:1,
         limitItems : 4,
-
-    }
-    if(req.query.page){
-        objectPagination.currentPage = parseInt(req.query.page);
-    }
-    objectPagination.skip = (objectPagination.currentPage - 1) *objectPagination.limitItems
-    objectPagination.totalPage = Math.ceil(countProducts/objectPagination.limitItems);
-
+        },
+        req.query,
+        countProducts
+    )
+   
+    
 
     const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip)
     
