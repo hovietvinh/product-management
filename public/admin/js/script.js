@@ -87,6 +87,15 @@ if(formChangeMulti){
         const checkboxMulti = document.querySelector("[checkbox-multi]");
         const inputsChecked = checkboxMulti.querySelectorAll("input[name=id]:checked");
         if(inputsChecked.length>0){
+            const type = e.target.elements.type.value ;
+            if(type=="delete-all"){
+                const isConfirm = confirm("ban xac thuc muon xoa");
+                if(!isConfirm){
+                    return;
+                }
+            }
+
+
             let ids ="";
             inputsChecked.forEach(input=>{
                 ids+= input.value +",";
