@@ -33,6 +33,12 @@ module.exports.index= async (req, res)=>{
     let find = {
         deleted:false 
     }
+    let keyword = "";
+    if(req.query.keyword){
+        keyword =req.query.keyword;
+        const regex = new RegExp(keyword,"i");
+        find.title = regex;
+    }
     if(status){
         find.status = status;
     }
@@ -41,6 +47,7 @@ module.exports.index= async (req, res)=>{
     res.render("admin/pages/products/index",{
         pageTitle:"Trang danh sách sản phẩm",
         products:products,
-        filterStatus:filterStatus
+        filterStatus:filterStatus,
+        keyword:keyword
     })
 }
