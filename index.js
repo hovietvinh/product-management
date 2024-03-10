@@ -10,6 +10,15 @@ const port = process.env.PORT;
 const database = require("./config/database");
 database.connect()
 
+// Dùng express-flash (show alert thông báo)
+const flash = require('express-flash');
+const cookieParser = require("cookie-parser")
+const session = require("express-session");
+app.use(cookieParser('keyboard cat'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(flash());
+
+
 // Dùng method-override
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'))
