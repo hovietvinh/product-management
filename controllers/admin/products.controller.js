@@ -2,21 +2,21 @@ const Product = require("../../models/product.model");
 
 // [GET] /admin/products
 module.exports.index= async (req, res)=>{
+    let find = {
+        deleted:false 
+    }
     
     // filter status
     const filterStatusHelper = require("../../helpers/FilterStatusHelper");
     const filterStatus = filterStatusHelper(req.query);
 
-    let find = {
-        deleted:false 
-    }
+    
 
     //duyet san pham theo ten
-    let keyword = "";
-    if(req.query.keyword){
-        keyword =req.query.keyword;
-        const regex = new RegExp(keyword,"i");
-        find.title = regex;
+    const SearchHepler = require("../../helpers/Search");
+    const objectSearch = SearchHepler(req.query);
+    if(objectSearch.regex){
+        find.title = objectSearch.regex;
     }
 
 
@@ -31,6 +31,6 @@ module.exports.index= async (req, res)=>{
         pageTitle:"Trang danh sách sản phẩm",
         products:products,
         filterStatus:filterStatus,
-        keyword:keyword
+        keyword:objectSearch.keyword
     })
 }
