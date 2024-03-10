@@ -53,6 +53,18 @@ const checkboxMulti = document.querySelector("[checkbox-multi]");
 if(checkboxMulti){
     const inputCheckAll = checkboxMulti.querySelector("input[name='checkAll']");
     const inputsCheck = checkboxMulti.querySelectorAll("input[name='id']");
+    const inputsPosition = checkboxMulti.querySelectorAll("input[name='position']");
+    inputsPosition.forEach(input=>{
+        input.addEventListener("change",()=>{
+            const inputCheck = input.closest("tr").querySelector("input[name='id']");
+            inputCheck.checked=true;
+            const formChangeMulti = document.querySelector("[form-change-multi]");
+            const select = formChangeMulti.querySelector("select[name='type']")
+            select.value = "change-position"
+           
+        })
+    })
+    console.log(inputsPosition);
     inputCheckAll.addEventListener("click",()=>{
         if(inputCheckAll.checked){
             inputsCheck.forEach(input=>{
@@ -95,11 +107,18 @@ if(formChangeMulti){
                 }
             }
 
-
             let ids ="";
-            inputsChecked.forEach(input=>{
-                ids+= input.value +",";
-            })
+            if(type=="change-position"){
+                inputsChecked.forEach(input=>{
+                    const pos = input.closest("tr").querySelector("input[name='position']").value;
+                    ids+= `${input.value}-${pos},`
+                })
+            }
+            else{
+                inputsChecked.forEach(input=>{
+                    ids+= input.value +",";
+                })
+            }
             const inputIds = e.target.elements.ids;
             inputIds.value = ids;
             formChangeMulti.submit();
@@ -113,3 +132,4 @@ if(formChangeMulti){
 
     })
 }
+

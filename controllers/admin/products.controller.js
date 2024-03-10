@@ -39,7 +39,7 @@ module.exports.index= async (req, res)=>{
     )
    
 
-    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip)
+    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip).sort({position:"desc"})
     
     res.render("admin/pages/products/index",{
         pageTitle:"Trang danh sách sản phẩm",
@@ -60,7 +60,6 @@ module.exports.changeStatus = async(req,res)=>{
 
 //[PATCH] /admin/products/change-multi
 module.exports.changeMulti = async(req,res)=>{
-    console.log(req.body);
     const type = req.body.type;
     const ids = req.body.ids.split(",");
     ids.pop();
@@ -76,6 +75,14 @@ module.exports.changeMulti = async(req,res)=>{
                 deleted:true,
                 deletedAt: new Date()
             })
+            break;
+        case "change-position":
+            console.log(type);
+            console.log(ids);
+            for(let i =0;i<ids.length;i++){
+                const [id,pos] = ids[i].split("-");
+                await Product.updateOne({_id:id},{position:pos})
+            }
             break;
         default:
             break;
