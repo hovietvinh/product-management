@@ -2,43 +2,26 @@ const Product = require("../../models/product.model");
 
 // [GET] /admin/products
 module.exports.index= async (req, res)=>{
-    const status = req.query.status;
-
-    const filterStatus = [
-        {
-            name:"Tất cả",
-            status:"",
-            class:""
-        },
-        {
-            name:"Hoạt động ",
-            status:"active",
-            class:""
-        },
-        {
-            name:"Dừng hoạt động",
-            status:"inactive",
-            class:""
-        },
-    ]
-    if(status){
-        const index = filterStatus.findIndex(item =>item.status ==status);
-        filterStatus[index].class="active"; 
-    }else{
-        const index = filterStatus.findIndex(item =>item.status =="");
-        filterStatus[index].class="active"; 
-    }
-
+    
+    // filter status
+    const filterStatusHelper = require("../../helpers/FilterStatusHelper");
+    const filterStatus = filterStatusHelper(req.query);
 
     let find = {
         deleted:false 
     }
+
+    //duyet san pham theo ten
     let keyword = "";
     if(req.query.keyword){
         keyword =req.query.keyword;
         const regex = new RegExp(keyword,"i");
         find.title = regex;
     }
+
+
+    //duyet san pham theo status
+    const status = req.query.status;
     if(status){
         find.status = status;
     }
