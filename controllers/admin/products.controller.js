@@ -139,3 +139,34 @@ module.exports.createPost =async (req,res)=>{
     await product.save();
     res.redirect(`${prefixAdmin}/products`)
 }
+
+
+// [GET] /admin/products/edit/:id
+module.exports.edit = async (req,res)=>{
+    const {id} = req.params;
+    const product = await Product.findOne({_id:id,deleted:false});
+    res.render("admin/pages/products/edit",{
+        pageTitle:"Cập nhật sản phẩm",
+        product :product
+    })
+}
+
+// [PATCH] /admin/products/edit/:id
+module.exports.editPatch = async (req,res)=>{
+    const {id} = req.params;
+    req.body.price =  parseInt(req.body.price)
+    req.body.discountPercentage =  parseInt(req.body.discountPercentage)
+    req.body.stock =  parseInt(req.body.stock)
+    req.body.position =  parseInt(req.body.position)
+    if(req.file){
+        req.body.thumbnail = `/uploads/${req.file.filename}`
+    }
+    const product = await Product.updateOne({_id:id},req.body);
+    if(product){
+        req.flash("success","Cập nhật sản phẩm thành công!");
+    }
+    else{
+        req.flash("error","Cập nhật sản phẩm không thành công!");
+    }
+    res.redirect("back");
+}

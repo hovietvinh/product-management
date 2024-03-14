@@ -152,14 +152,17 @@ if(showAlert){
 const uploadImg = document.querySelector("[upload-image]");
 if(uploadImg){
     const inputUploadImg = document.querySelector("[upload-image-input]");
-
-    const ImgUploadImg = document.querySelector("[upload-image-img]");
-    const span = document.querySelector("[button-hidden-preview]");
+    const ImgUploadImg = document.querySelector("[upload-image-img]");  
+    const span = document.querySelector("[button-hidden-preview]");  
+    if(ImgUploadImg.src !=''){
+        
+        span.classList.remove("btn-hide")
+    }
     inputUploadImg.addEventListener("change",(e)=>{
         const [file] = e.target.files;
         if(file){
             ImgUploadImg.src = URL.createObjectURL(file)
-            span.classList.remove("btn-hide");
+            span.classList.remove("btn-hide")
         }
     })
     span.addEventListener("click",(e)=>{
