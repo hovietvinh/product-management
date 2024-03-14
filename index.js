@@ -29,11 +29,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 
 // DÙNG PUG 
-app.set("views" , "./views");
+app.set("views" , `${__dirname}/views`);
 app.set("view engine" , "pug");
 
 // DÙNG FILE TĨNH
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 // KHAI BÁO BIẾN TOÀN CỤC 
 const systemConfig = require("./config/system");
