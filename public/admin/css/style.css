@@ -74,3 +74,31 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+
+/* PREVIEW */
+.image-preview {
+    width: 150px;
+    height: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+}
+.image-preview[src=""]{
+    display: none; 
+}
+.btn-circle {
+    width: 30px;    
+    height: 30px;   
+    text-align: center; 
+    padding: 6px 0; 
+    font-size: 12px;    
+    line-height: 1.428571429;   
+    border-radius: 15px;
+}
+
+.btn-hide{
+    display: none; 
+
+}

@@ -147,3 +147,27 @@ if(showAlert){
     },time)
 }
 
+
+// PREVIEW IMG
+const uploadImg = document.querySelector("[upload-image]");
+if(uploadImg){
+    const inputUploadImg = document.querySelector("[upload-image-input]");
+
+    const ImgUploadImg = document.querySelector("[upload-image-img]");
+    const span = document.querySelector("[button-hidden-preview]");
+    inputUploadImg.addEventListener("change",(e)=>{
+        const [file] = e.target.files;
+        if(file){
+            ImgUploadImg.src = URL.createObjectURL(file)
+            span.classList.remove("btn-hide");
+        }
+    })
+    span.addEventListener("click",(e)=>{
+        // console.log(e.target);
+        e.target.classList.add("btn-hide");
+        ImgUploadImg.src = "";
+        inputUploadImg.value = ""
+        // inputUploadImg.files.value =""
+    })
+}
+
