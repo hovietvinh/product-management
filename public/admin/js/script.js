@@ -154,7 +154,7 @@ if(uploadImg){
     const inputUploadImg = document.querySelector("[upload-image-input]");
     const ImgUploadImg = document.querySelector("[upload-image-img]");  
     const span = document.querySelector("[button-hidden-preview]");  
-    if(ImgUploadImg.src !=''){
+    if(!ImgUploadImg.src){
         
         span.classList.remove("btn-hide")
     }
