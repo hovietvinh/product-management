@@ -23,9 +23,13 @@ app.use(flash());
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'))
 
-// DÙng body-parser
+// DÙNG body-parser
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
+
+// DÙNG TINYMCE
+var path = require('path');
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 
 // DÙNG PUG 
