@@ -27,6 +27,16 @@ module.exports.index= async (req, res)=>{
         find.status = status;
     }
 
+    // SORT products
+    let sort ={}
+    const sortKey = req.query.sortKey
+    const sortValue = req.query.sortValue
+    if(sortKey && sortValue){
+        sort[sortKey] = sortValue;
+    }else{
+        sort.position = "desc";
+    }
+
     // phân trang sản phẩm
     const countProducts = await Product.countDocuments(find);
     const paginationHelper = require("../../helpers/PaginationHelper");
@@ -40,7 +50,7 @@ module.exports.index= async (req, res)=>{
     )
    
 
-    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip).sort({position:"desc"})
+    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip).sort(sort)
     
     res.render("admin/pages/products/index",{
         pageTitle:"Trang danh sách sản phẩm",
