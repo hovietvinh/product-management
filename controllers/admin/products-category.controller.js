@@ -79,6 +79,7 @@ module.exports.changeStatus =async (req,res)=>{
     res.redirect("back");
 }
 
+// [PATCH] /admin/products-category/changeMulti
 module.exports.changeMulti = async (req,res)=>{
     console.log(req.body);
     const type = req.body.type;
@@ -117,5 +118,39 @@ module.exports.changeMulti = async (req,res)=>{
         default:
             break;
     }
+    res.redirect("back")
+}
+
+// [DELETED] /admin/products-category/delete/:id
+module.exports.deleted= async (req,res)=>{
+    const {id} = req.params
+    await ProductsCategory.updateOne({_id:id},{deleted:true});
+    req.flash("success","Xóa danh mục thành công");
+    res.redirect("back");
+}
+
+// [GET] /admin/products-category/edit/:id
+module.exports.edit =  async (req,res)=>{
+    const {id} = req.params;
+    const record = await ProductsCategory.findOne({_id:id,deleted:false});
+    res.render("admin/pages/products-category/edit",{
+        pageTitle:"Cập nhật danh mục",
+        record :record
+    })
+}
+
+// [PATCH] /admin/products-category/edit/:id
+module.exports.editPatch =  async (req,res)=>{
+    const {id} = req.params;
+    
+    const record =  await ProductsCategory.updateOne({_id:id},req.body);
+    if(record){
+        req.flash("success","Cập nhật danh mục thành công!");
+    }
+    else{
+        req.flash("error","Cập nhật danh mục không thành công!");
+    }
+
+    
     res.redirect("back")
 }
