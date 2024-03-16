@@ -97,8 +97,7 @@ module.exports.changeMulti = async(req,res)=>{
 
             break;
         case "change-position":
-            console.log(type);
-            console.log(ids);
+       
             for(let i =0;i<ids.length;i++){
                 const [id,pos] = ids[i].split("-");
                 await Product.updateOne({_id:id},{position:pos})

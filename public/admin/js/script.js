@@ -1,5 +1,6 @@
 // BUTTON STATUS 
 const buttonStatus = document.querySelectorAll("[button-status]");
+
 if(buttonStatus.length>0){
     const url = new URL(window.location.href);
     buttonStatus.forEach(button=>{
